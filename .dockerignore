@@ -1,0 +1,70 @@
+# Dependencies
+node_modules
+**/node_modules
+.bun
+**/.bun
+
+# Build artifacts
+dist
+**/dist
+.output
+**/.output
+
+# Development files
+*.log
+**/*.log
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+.gitignore
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Testing
+coverage
+**/coverage
+.nyc_output
+**/.nyc_output
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__
+**/__tests__
+
+# Documentation
+*.md
+
+# Development tools
+.tanstack
+**/.tanstack
+.logs
+**/.logs
+biome.json
+**/biome.json
+
+# Docker files
+**/Dockerfile
+**/docker-compose.yml
+**/.dockerignore
+**/build-docker.sh
+
+# Misc
+*.tsbuildinfo
+**/*.tsbuildinfo
+.cache
+**/.cache
+tmp
+temp
+**/tmp
+**/temp
+
+# Data directory (if you have local data)
+data

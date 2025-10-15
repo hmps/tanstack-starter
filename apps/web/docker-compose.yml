@@ -1,0 +1,37 @@
+services:
+  web:
+    build:
+      context: ../..
+      dockerfile: apps/web/Dockerfile
+      args:
+        - DOTENV_PRIVATE_KEY_PRODUCTION=${DOTENV_PRIVATE_KEY_PRODUCTION}
+    restart: unless-stopped
+
+    ports:
+      - "${PORT:-3773}:3773"
+
+    environment:
+      - NODE_ENV=production
+      - PORT=3773
+      - DOTENV_PRIVATE_KEY_PRODUCTION=${DOTENV_PRIVATE_KEY_PRODUCTION}
+
+      # Asset preloading configuration (optional tuning)
+      - ASSET_PRELOAD_MAX_SIZE=5242880
+      - ASSET_PRELOAD_ENABLE_ETAG=true
+      - ASSET_PRELOAD_ENABLE_GZIP=true
+
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3773/"]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3
+
+    volumes:
+      # Persist SQLite database
+      - myapp-data:/data
+
+volumes:
+  myapp-data:
+    driver: local

@@ -1,0 +1,23 @@
+{
+  "root": false,
+  "extends": "//",
+  "files": {
+    "includes": [
+      "**/src/**/*",
+      "**/index.html",
+      "**/vite.config.js",
+      "!**/src/routeTree.gen.ts"
+    ]
+  },
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noUnknownAtRules": "off",
+        "noArrayIndexKey": "off"
+      },
+      "correctness": {
+        "useUniqueElementIds": "off"
+      }
+    }
+  }
+}
