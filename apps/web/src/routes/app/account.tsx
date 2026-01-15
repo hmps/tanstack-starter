@@ -1,64 +1,69 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { signOut, useSession } from '@/lib/auth-client';
 
-/**
- * Account page - user profile and settings
- */
 export const Route = createFileRoute('/app/account')({
   component: AccountPage,
 });
 
+/**
+ * Account page - user profile and settings
+ */
 function AccountPage() {
   const { data: session } = useSession();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 p-8">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-8">Account</h1>
-
-        <div className="bg-slate-800 rounded-lg p-6 space-y-6">
+    <div className="flex min-h-screen items-center justify-center p-8">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <CardTitle>Account</CardTitle>
+          <CardDescription>Your profile information</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
           <dl className="space-y-4">
             <div>
-              <dt className="text-sm font-medium text-gray-400">Email</dt>
-              <dd className="text-white">{session?.user.email}</dd>
+              <dt className="text-sm font-medium text-muted-foreground">
+                Email
+              </dt>
+              <dd>{session?.user.email}</dd>
             </div>
-
             <div>
-              <dt className="text-sm font-medium text-gray-400">Name</dt>
-              <dd className="text-white">{session?.user.name ?? 'Not set'}</dd>
+              <dt className="text-sm font-medium text-muted-foreground">
+                Name
+              </dt>
+              <dd>{session?.user.name ?? 'Not set'}</dd>
             </div>
-
             <div>
-              <dt className="text-sm font-medium text-gray-400">
+              <dt className="text-sm font-medium text-muted-foreground">
                 Member since
               </dt>
-              <dd className="text-white">
+              <dd>
                 {session?.user.createdAt
                   ? new Date(session.user.createdAt).toLocaleDateString()
                   : 'Unknown'}
               </dd>
             </div>
           </dl>
-
-          <hr className="border-slate-700" />
-
-          <div className="flex gap-4">
-            <a
-              href="/"
-              className="px-4 py-2 text-sm text-gray-300 hover:text-white border border-gray-600 hover:border-gray-500 rounded-lg transition-colors"
-            >
-              Back to home
-            </a>
-            <button
-              type="button"
-              onClick={() => signOut()}
-              className="px-4 py-2 text-sm bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
-            >
-              Sign out
-            </button>
-          </div>
-        </div>
-      </div>
+        </CardContent>
+        <Separator />
+        <CardFooter className="gap-2 pt-4">
+          <Button render={<Link to="/" />} variant="outline">
+            Back to home
+          </Button>
+          <Button variant="destructive" onClick={() => signOut()}>
+            Sign out
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

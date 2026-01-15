@@ -1,5 +1,16 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { signIn } from '@/lib/auth-client';
 
 export const Route = createFileRoute('/sign-in')({
@@ -37,68 +48,53 @@ function SignInPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="w-full max-w-md space-y-8 p-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold">Sign in</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Enter your credentials to continue
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-          {error && (
-            <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
-              {error}
-            </div>
-          )}
-
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium">
-                Email
-              </label>
-              <input
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle>Sign in</CardTitle>
+          <CardDescription>Enter your credentials to continue</CardDescription>
+        </CardHeader>
+        <form onSubmit={handleSubmit}>
+          <CardContent className="space-y-4">
+            {error && (
+              <div className="rounded-md bg-destructive/10 p-3 text-sm text-destructive">
+                {error}
+              </div>
+            )}
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="mt-1 block w-full rounded-md border px-3 py-2"
                 placeholder="you@example.com"
               />
             </div>
-
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium">
-                Password
-              </label>
-              <input
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="mt-1 block w-full rounded-md border px-3 py-2"
               />
             </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-md bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
-          >
-            {loading ? 'Signing in...' : 'Sign in'}
-          </button>
-
-          <p className="text-center text-sm text-muted-foreground">
-            Don't have an account?{' '}
-            <a href="/sign-up" className="font-medium hover:underline">
-              Sign up
-            </a>
-          </p>
+          </CardContent>
+          <CardFooter className="flex-col gap-4">
+            <Button type="submit" disabled={loading} className="w-full">
+              {loading ? 'Signing in...' : 'Sign in'}
+            </Button>
+            <p className="text-center text-sm text-muted-foreground">
+              Don't have an account?{' '}
+              <Link to="/sign-up" className="font-medium hover:underline">
+                Sign up
+              </Link>
+            </p>
+          </CardFooter>
         </form>
-      </div>
+      </Card>
     </div>
   );
 }
