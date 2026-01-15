@@ -5,8 +5,8 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 export const env = createEnv({
   server: {
-    CLERK_WEBHOOK_SECRET: z.string().min(1),
-    CLERK_SECRET_KEY: z.string().min(1),
+    BETTER_AUTH_SECRET: z.string().min(1),
+    BETTER_AUTH_URL: z.string().url().optional(),
     // Axiom logging (required in production, optional in development)
     AXIOM_DATASET: isProduction
       ? z.string().min(1, 'AXIOM_DATASET is required in production')
@@ -17,7 +17,7 @@ export const env = createEnv({
   },
   clientPrefix: 'VITE_',
   client: {
-    VITE_CLERK_PUBLISHABLE_KEY: z.string().min(1),
+    VITE_BETTER_AUTH_URL: z.string().url().optional(),
   },
   runtimeEnv: { ...process.env, ...import.meta.env },
   emptyStringAsUndefined: true,

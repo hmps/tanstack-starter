@@ -1,9 +1,9 @@
-import { ClerkProvider } from '@clerk/tanstack-react-start';
 import { TanStackDevtools } from '@tanstack/react-devtools';
 import type { QueryClient } from '@tanstack/react-query';
 import {
   createRootRouteWithContext,
   HeadContent,
+  Outlet,
   Scripts,
 } from '@tanstack/react-router';
 import { NotFound } from '@/components/not-found';
@@ -40,28 +40,26 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   }),
 
   notFoundComponent: NotFound,
-  shellComponent: RootDocument,
+  component: RootComponent,
 });
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootComponent() {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <head>
-          <HeadContent />
-        </head>
-        <body>
-          {children}
-          <TanStackDevtools
-            config={{
-              position: 'bottom-right',
-              hideUntilHover: true,
-            }}
-            plugins={[TanstackRouterDevtools, TanstackQueryDevtools]}
-          />
-          <Scripts />
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <Outlet />
+        <TanStackDevtools
+          config={{
+            position: 'bottom-right',
+            hideUntilHover: true,
+          }}
+          plugins={[TanstackRouterDevtools, TanstackQueryDevtools]}
+        />
+        <Scripts />
+      </body>
+    </html>
   );
 }
