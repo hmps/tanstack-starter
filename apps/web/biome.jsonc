@@ -9,14 +9,25 @@
       "!**/src/routeTree.gen.ts"
     ]
   },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
   "linter": {
     "rules": {
       "suspicious": {
-        "noUnknownAtRules": "off",
         "noArrayIndexKey": "off"
       },
       "correctness": {
         "useUniqueElementIds": "off"
+      },
+      "a11y": {
+        "useValidAnchor": "off",
+        "useSemanticElements": "off",
+        "noLabelWithoutControl": "off",
+        "useKeyWithClickEvents": "off",
+        "noStaticElementInteractions": "off"
       }
     }
   }

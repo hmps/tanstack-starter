@@ -3,3 +3,5 @@ node_modules
 *.local
 .logs/
 data/
+
+.opencode/plans
